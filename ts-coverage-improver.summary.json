@@ -2,6 +2,6 @@
   "src/greeter.ts": {
     "include": true,
     "filePath": "src/greeter.ts",
-    "coveragePct": 85
+    "coveragePct": 100
   }
 }
