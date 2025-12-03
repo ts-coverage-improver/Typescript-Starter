@@ -1,3 +1,20 @@
+declare const global: any;
+declare const window: any;
+declare const self: any;
+
+function getGlobalScope(): any {
+    if (typeof window !== "undefined") {
+        return window;
+    }
+    if (typeof self !== "undefined") {
+        return self;
+    }
+    if (typeof global !== "undefined") {
+        return global;
+    }
+    return undefined;
+}
+
 class Student {
     fullName: string;
     constructor(public firstName, public middleInitial, public lastName) {
@@ -14,6 +31,16 @@ function greeter(person : Person) {
     return "Hello, " + person.firstName + " " + person.lastName;
 }
 
+var scope = getGlobalScope();
+if (scope && !scope.tsGreeter) {
+    scope.tsGreeter = {
+        Student: Student,
+        greeter: greeter
+    };
+}
+
 var user = new Student("Jane", "M.", "User");
 
-document.body.innerHTML = greeter(user);
+if (typeof document !== "undefined" && document.body) {
+    document.body.innerHTML = greeter(user);
+}
